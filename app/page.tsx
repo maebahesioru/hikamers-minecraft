@@ -1,9 +1,10 @@
-import { BookOpen, ArrowRight, Server, HelpCircle, Camera } from 'lucide-react';
+import { BookOpen, ArrowRight, Server, HelpCircle, Camera, FileText } from 'lucide-react';
 import Link from 'next/link';
 import { AnimatedHero } from './components/AnimatedHero';
 import { AnimatedSection } from './components/AnimatedContent';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
+import { DiscordWidget } from './components/DiscordWidget';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -96,28 +97,84 @@ export default function Home() {
           </Link>
         </AnimatedSection>
 
-        {/* Q&A Link */}
+        {/* Q&A and Terms Row */}
         <AnimatedSection delay={200}>
-          <Link 
-            href="/faq"
-            className="block bg-black/40 backdrop-blur-md rounded-lg p-6 md:p-8 border border-green-700/50 hover:border-green-500/50 transition-all hover:scale-105 group"
-          >
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="flex items-center gap-3 mb-3">
-                  <HelpCircle className="text-green-400" size={32} />
-                  <h2 className="text-3xl font-bold text-green-400">よくある質問（Q&A）</h2>
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            {/* Q&A Link */}
+            <Link 
+              href="/faq"
+              className="bg-black/40 backdrop-blur-md rounded-lg p-6 md:p-8 border border-green-700/50 hover:border-green-500/50 transition-all hover:scale-105 group"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="flex items-center gap-3 mb-3">
+                    <HelpCircle className="text-green-400" size={32} />
+                    <h2 className="text-3xl font-bold text-green-400">よくある質問（Q&A）</h2>
+                  </div>
+                  <p className="text-white text-lg mb-2">
+                    接続方法、ゲームプレイ、プラグインなど
+                  </p>
+                  <p className="text-green-300 text-sm">
+                    20以上の質問と回答を掲載
+                  </p>
                 </div>
-                <p className="text-white text-lg mb-2">
-                  接続方法、ゲームプレイ、プラグインなど
-                </p>
-                <p className="text-green-300 text-sm">
-                  20以上の質問と回答を掲載
-                </p>
+                <ArrowRight className="text-green-400 flex-shrink-0 group-hover:translate-x-2 transition-transform" size={24} />
               </div>
-              <ArrowRight className="text-green-400 flex-shrink-0 group-hover:translate-x-2 transition-transform" size={24} />
+            </Link>
+
+            {/* Terms Link */}
+            <Link 
+              href="/terms"
+              className="bg-black/40 backdrop-blur-md rounded-lg p-6 md:p-8 border border-blue-700/50 hover:border-blue-500/50 transition-all hover:scale-105 group"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="flex items-center gap-3 mb-3">
+                    <FileText className="text-blue-400" size={32} />
+                    <h2 className="text-3xl font-bold text-blue-400">利用規約・ガイドライン</h2>
+                  </div>
+                  <p className="text-white text-lg mb-2">
+                    サーバールール、Discordルールなど
+                  </p>
+                  <p className="text-blue-300 text-sm">
+                    必ずお読みください
+                  </p>
+                </div>
+                <ArrowRight className="text-blue-400 flex-shrink-0 group-hover:translate-x-2 transition-transform" size={24} />
+              </div>
+            </Link>
+          </div>
+        </AnimatedSection>
+
+        {/* Discord Widget */}
+        <AnimatedSection delay={300}>
+          <DiscordWidget />
+        </AnimatedSection>
+
+        {/* Vote Banner */}
+        <AnimatedSection delay={400}>
+          <div className="bg-black/40 backdrop-blur-md rounded-lg p-6 border border-green-700/50 mt-8">
+            <h2 className="text-2xl font-bold text-green-400 mb-4 text-center">サーバーに投票しよう！</h2>
+            <p className="text-white text-center mb-6">
+              投票してサーバーを応援してください。ランキング上位を目指しています！
+            </p>
+            <div className="flex justify-center">
+              <a 
+                href="https://minecraft.jp/servers/hikamerscraft.f5.si"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block hover:scale-105 transition-transform"
+              >
+                <img 
+                  src="https://minecraft.jp/servers/hikamerscraft.f5.si/banner/1/560x95.png"
+                  alt="ヒカマーズマイクラに投票"
+                  className="rounded-lg shadow-lg"
+                  width={560}
+                  height={95}
+                />
+              </a>
             </div>
-          </Link>
+          </div>
         </AnimatedSection>
       </main>
 

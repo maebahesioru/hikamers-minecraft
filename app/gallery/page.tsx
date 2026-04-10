@@ -5,10 +5,26 @@ import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { ImageModal } from '../components/ImageModal';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function GalleryPage() {
   const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null);
+  const [galleryImages, setGalleryImages] = useState<string[]>([]);
+
+  useEffect(() => {
+    // ギャラリー画像を自動検出
+    const loadGalleryImages = async () => {
+      try {
+        const response = await fetch('/api/gallery-images');
+        const images = await response.json();
+        setGalleryImages(images);
+      } catch (error) {
+        console.error('Failed to load gallery images:', error);
+      }
+    };
+    loadGalleryImages();
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-900 via-green-800 to-green-950">
       {/* Header */}
@@ -49,42 +65,47 @@ export default function GalleryPage() {
           <h2 className="text-3xl font-bold text-green-400 mb-6">スクリーンショット</h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Screenshot 1 */}
-            <button
-              onClick={() => setSelectedImage({ src: '/gallery/screenshot-1.jpg', alt: 'ヒカマーズマイクラのスクリーンショット' })}
-              className="group relative overflow-hidden rounded-lg border border-green-700/50 hover:border-green-500/50 transition-all hover:scale-105 cursor-pointer"
-            >
-              <div className="relative aspect-video bg-green-900/30">
-                <Image
-                  src="/gallery/screenshot-1.jpg"
-                  alt="ヒカマーズマイクラのスクリーンショット"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <p className="text-white text-sm">ヒカマーズマイクラの世界</p>
-                  <p className="text-green-400 text-xs mt-1">クリックで拡大</p>
+            {galleryImages.length > 0 ? (
+              galleryImages.map((imagePath, index) => (
+                <button
+                  key={imagePath}
+                  onClick={() => setSelectedImage({ 
+                    src: imagePath, 
+                    alt: `ヒカマーズマイクラのスクリーンショット ${index + 1}` 
+                  })}
+                  className="group relative overflow-hidden rounded-lg border border-green-700/50 hover:border-green-500/50 transition-all hover:scale-105 cursor-pointer"
+                >
+                  <div className="relative aspect-square bg-green-900/30">
+                    <Image
+                      src={imagePath}
+                      alt={`ヒカマーズマイクラのスクリーンショット ${index + 1}`}
+                      fill
+                      className="object-contain"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      unoptimized
+                      priority={index < 3}
+                      loading={index < 3 ? 'eager' : 'lazy'}
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      <p className="text-white text-sm">ヒカマーズマイクラの世界</p>
+                      <p className="text-green-400 text-xs mt-1">クリックで拡大</p>
+                    </div>
+                  </div>
+                </button>
+              ))
+            ) : (
+              // ローディング中のプレースホルダー
+              Array.from({ length: 3 }).map((_, index) => (
+                <div key={index} className="relative overflow-hidden rounded-lg border border-green-700/50 bg-green-900/20 aspect-video flex items-center justify-center">
+                  <div className="text-center">
+                    <Camera className="mx-auto mb-3 text-green-400/50 animate-pulse" size={48} />
+                    <p className="text-green-400/50 text-sm">読み込み中...</p>
+                  </div>
                 </div>
-              </div>
-            </button>
-
-            {/* Placeholder for more screenshots */}
-            <div className="relative overflow-hidden rounded-lg border border-green-700/50 bg-green-900/20 aspect-video flex items-center justify-center">
-              <div className="text-center">
-                <Camera className="mx-auto mb-3 text-green-400/50" size={48} />
-                <p className="text-green-400/50 text-sm">もっと見る</p>
-              </div>
-            </div>
-
-            <div className="relative overflow-hidden rounded-lg border border-green-700/50 bg-green-900/20 aspect-video flex items-center justify-center">
-              <div className="text-center">
-                <Camera className="mx-auto mb-3 text-green-400/50" size={48} />
-                <p className="text-green-400/50 text-sm">もっと見る</p>
-              </div>
-            </div>
+              ))
+            )}
           </div>
         </section>
 

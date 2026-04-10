@@ -5,21 +5,28 @@ import { ExternalLink, Gamepad2, Users, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-// ギャラリー画像のリスト（今後追加可能）
-const galleryImages = [
-  '/gallery/screenshot-1.jpg',
-  // 今後画像を追加する場合はここに追加
-];
-
 export function AnimatedHero() {
   const [isVisible, setIsVisible] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState('');
 
   useEffect(() => {
-    // ランダムに画像を選択
-    const randomImage = galleryImages[Math.floor(Math.random() * galleryImages.length)];
-    setBackgroundImage(randomImage);
-    setIsVisible(true);
+    // ギャラリー画像を自動検出してランダムに選択
+    const loadBackgroundImage = async () => {
+      try {
+        const response = await fetch('/api/gallery-images');
+        const images = await response.json();
+        
+        if (images.length > 0) {
+          const randomImage = images[Math.floor(Math.random() * images.length)];
+          setBackgroundImage(randomImage);
+        }
+      } catch (error) {
+        console.error('Failed to load gallery images:', error);
+      }
+      setIsVisible(true);
+    };
+    
+    loadBackgroundImage();
   }, []);
 
   return (
@@ -35,6 +42,7 @@ export function AnimatedHero() {
             style={{ filter: 'blur(8px) brightness(0.7)' }}
             priority
             quality={75}
+            unoptimized
           />
           {/* Multi-layer gradient overlay for smooth blending */}
           <div className="absolute inset-0 bg-gradient-to-b from-green-900/70 via-green-800/60 to-green-950/80"></div>

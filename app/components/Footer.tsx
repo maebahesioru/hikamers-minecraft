@@ -128,6 +128,13 @@ export function Footer() {
             </p>
             <div className="flex items-center gap-4 text-sm">
               <Link 
+                href="/terms"
+                className="text-green-200 hover:text-green-400 transition-colors"
+              >
+                利用規約
+              </Link>
+              <span className="text-green-700">|</span>
+              <Link 
                 href="/server-info"
                 className="text-green-200 hover:text-green-400 transition-colors"
               >
