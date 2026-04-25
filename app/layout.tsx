@@ -77,7 +77,6 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         {children}
-              <script src="https://hikakinmaniacoin.hikamer.f5.si/ad.js" data-user-id="cmo8lk1kj0000aggyuhzgv5vk" async></script>
       </body>
     </html>
   );
