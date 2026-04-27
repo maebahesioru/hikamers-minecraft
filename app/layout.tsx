@@ -2,6 +2,7 @@
 import "./globals.css";
 import { StructuredData } from "./components/StructuredData";
 
+// rebuild trigger
 export const metadata: Metadata = {
   metadataBase: new URL('https://hikamers-minecraft.hikamer.f5.si'),
   title: {
