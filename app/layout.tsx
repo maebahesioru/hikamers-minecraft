@@ -3,7 +3,7 @@ import "./globals.css";
 import { StructuredData } from "./components/StructuredData";
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://hikamerscraft.f5.si'),
+  metadataBase: new URL('https://hikamers-minecraft.hikamer.f5.si'),
   title: {
     default: "ヒカマーズマイクラ - 統合版&Java版対応マインクラフトサーバー",
     template: "%s | ヒカマーズマイクラ",
@@ -37,16 +37,18 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "ja_JP",
-    url: "https://hikamerscraft.f5.si",
+    url: "https://hikamers-minecraft.hikamer.f5.si",
     title: "ヒカマーズマイクラ - 統合版&Java版対応マインクラフトサーバー",
     description: "統合版&Java版どちらも参加可能なマインクラフトサーバー。便利なプラグイン13種類以上、クロスプレイ対応、24時間稼働。",
     siteName: "ヒカマーズマイクラ",
+    images: ["/opengraph-image"],
   },
   twitter: {
     card: "summary_large_image",
     title: "ヒカマーズマイクラ",
     description: "統合版&Java版どちらも参加可能なマインクラフトサーバー",
     creator: "@hikamers",
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,
@@ -60,7 +62,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://hikamerscraft.f5.si',
+    canonical: 'https://hikamers-minecraft.hikamer.f5.si',
   },
   category: 'gaming',
 };
