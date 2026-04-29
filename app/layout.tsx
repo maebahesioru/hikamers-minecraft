@@ -62,6 +62,7 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  icons: { icon: "/icon" },
   alternates: {
     canonical: 'https://hikamers-minecraft.hikamer.f5.si',
   },
